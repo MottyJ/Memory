@@ -35,3 +35,22 @@ body {
     height: auto;
 }
 
+@media screen and (max-width: 600px) {
+    .card {
+        display: inline-block;
+        width: 20vw;
+        height: 10vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+
+    .back {
+        display: block;
+        max-height: 100px;
+        max-width: 75px;
+        width: auto;
+        height: auto;
+    }
+}
