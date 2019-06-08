@@ -1,20 +1,38 @@
-function myFunction(x) {
-    if (x.matches) {
+var Memory = {};
+
+Memory.responsiveMeEasy = function (size) {
+    if (size.matches) {
         document.getElementById("responsive").innerHTML = '<div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div>';
     } else {
         document.getElementById("responsive").innerHTML = '<div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div>';
     }
 }
-var x = window.matchMedia("(max-width: 420px)");
-myFunction(x);
-x.addListener(myFunction);
 
-
-var Memory = {};
+Memory.newGame = function () {
+    var modal = document.getElementById("modal-wrapper");
+    modal.style = "display: absolute";
+    var logNewGame = document.getElementById("new-game");
+    logNewGame.addEventListener('click', function clicked() {
+        if (document.getElementById('easy').checked) {
+            Memory.deckEasy = ["ca1", "ca2", "ca3", "ca4", "ca5", "ca6", "ca1", "ca2", "ca3", "ca4", "ca5", "ca6"];
+            Memory.mySize = window.matchMedia("(max-width: 420px)");
+            Memory.responsiveMeEasy(Memory.mySize);
+            Memory.mySize.addListener(Memory.responsiveMeEasy);
+            modal.style = "display: none";
+            Memory.dealCards();
+        }
+        if (document.getElementById('medium').checked) {
+            Memory.deckMedium = ["ca1", "ca2", "ca3", "ca4", "ca5", "ca6", "ca7", "ca8", "ca9", "ca1", "ca2", "ca3", "ca4", "ca5", "ca6", "ca7", "ca8", "ca9"];
+        }
+        if (document.getElementById('hard').checked) {
+            console.log("hard checked");
+        }
+    }, false)
+}
 
 Memory.deck = ["ca1", "ca2", "ca3", "ca4", "ca5", "ca6", "ca1", "ca2", "ca3", "ca4", "ca5", "ca6"];
 Memory.deckLength = Memory.deck.length;
-Memory.cards = document.querySelectorAll(".back");
+
 
 Memory.randomizeCards = function (deck) {
     var randomIndex = Math.floor((Math.random() * deck.length));
@@ -24,6 +42,7 @@ Memory.randomizeCards = function (deck) {
 }
 
 Memory.dealCards = function () {
+    Memory.cards = document.querySelectorAll(".back");
     Memory.cards.forEach(function (card, index) {
         var dealRandomCard = Memory.randomizeCards(Memory.deck);
         card.setAttribute('img-path', "./img/" + dealRandomCard + ".jpg");
@@ -70,4 +89,4 @@ Memory.flipCard = function (card, index) {
     }
 }
 
-window.addEventListener('load', Memory.dealCards);
+window.addEventListener('load', Memory.newGame);

@@ -4,17 +4,41 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <title>Memory</title>
 
-    
+    <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/memory.css" />
 
 </head>
 
 <body>
+    <div id="modal-wrapper" style="display:none;">
+        <div class="modal">
+            <div class="modal-title">Memory!</div>
+            <div class="modal-content">
+                <h3>Please select difficulty: </h3>
+                <div class="center">
+                    <div>
+                        <label for="easy">Easy</label>
+                        <input type="radio" id="easy" name="mode" />
+                    </div>
+                    <div>
+                        <label for="medium">Medium</label>
+                        <input type="radio" id="medium" name="mode" />
+                    </div>
+                    <div>
+                        <label for="hard">Hard</label>
+                        <input type="radio" id="hard" name="mode" />
+                    </div>
+                </div>
+            </div>
+            <br>
+            <button id="new-game">Play!</button>
+        </div>
+    </div>
     <div class="container" id="responsive">
-        
+
     </div>
 
     <script src="./js/memory.js"></script>
