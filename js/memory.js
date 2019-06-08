@@ -6,51 +6,51 @@ Memory.cards = document.querySelectorAll(".back");
 
 Memory.dealCards = function () {
     Memory.cards.forEach(function (card, index) {
-        var dealRandomCard = randomizeCards(Memory.deck);
+        var dealRandomCard = Memory.randomizeCards(Memory.deck);
         card.setAttribute('img-path', "./img/" + dealRandomCard + ".jpg");
         card.addEventListener('click', function (event) {
             var card = event.target;
-            flipCard(card, index);
+            Memory.flipCard(card, index);
         });
     })
 }
 
-var clickCounter = 0;
-var isFlipped = false;
-var card1;
-var card2;
-var isMatched = 0;
+Memory.clickCounter = 0;
+Memory.isFlipped = false;
+Memory.isMatched = 0;
 
-function flipCard(card, index) {
-    if (isFlipped == false && clickCounter < 2) {
+Memory.flipCard = function (card, index) {
+    if (Memory.isFlipped == false && Memory.clickCounter < 2) {
         card.setAttribute("src", card.getAttribute('img-path'));
-        card1 = card;
-        clickCounter ++;
-        isFlipped = true;
-    } else if (isFlipped == true && clickCounter < 2) {
+        Memory.card1 = card;
+        Memory.i1 = index;
+        Memory.clickCounter ++;
+        Memory.isFlipped = true;
+    } else if (Memory.isFlipped == true && Memory.clickCounter < 2) {
         card.setAttribute("src", card.getAttribute('img-path'));
-        card2 = card;
-        clickCounter ++;
-        if (card1.getAttribute("src") == card2.getAttribute("src")) {
-            isFlipped = false;
-            clickCounter = 0;
-            if (isMatched < Memory.deckLength / 2) {
-                isMatched++;
-            } if (isMatched == Memory.deckLength / 2) {
+        Memory.card2 = card;
+        Memory.i2 = index;
+        Memory.clickCounter ++;
+        if (Memory.card1.getAttribute("src") == Memory.card2.getAttribute("src") && Memory.i1 !== Memory.i2) {
+            Memory.isFlipped = false;
+            Memory.clickCounter = 0;
+            if (Memory.isMatched < Memory.deckLength / 2) {
+                Memory.isMatched++;
+            } if (Memory.isMatched == Memory.deckLength / 2) {
                 console.log("You've won the game!")
             }
         } else {
             setTimeout(function () {
-                card1.setAttribute("src", "./img/backcard.jpg");
-                card2.setAttribute("src", "./img/backcard.jpg");
-                isFlipped = false;
-                clickCounter = 0;
+                Memory.card1.setAttribute("src", "./img/backcard.jpg");
+                Memory.card2.setAttribute("src", "./img/backcard.jpg");
+                Memory.isFlipped = false;
+                Memory.clickCounter = 0;
             }, 1000)
         }
     }
 }
 
-function randomizeCards(deck) {
+Memory.randomizeCards = function (deck) {
     var randomIndex = Math.floor((Math.random() * deck.length));
     var card = deck[randomIndex];
     deck.splice(randomIndex, 1);
