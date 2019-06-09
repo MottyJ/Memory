@@ -57,30 +57,27 @@ body {
     width: 100vw;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
     background-image: url('../img/background.jpg');
     background-size: cover;
 }
 
 .row {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 .card {
     display: inline-block;
-    width: 20vw;
-    height: 30vh;
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 .back {
     display: block;
-    max-height: 187.5px;
-    max-width: 125px;
+    max-height: 125px;
+    max-width: 100px;
     width: auto;
     height: auto;
 }

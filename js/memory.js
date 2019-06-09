@@ -8,13 +8,24 @@ Memory.responsiveMeEasy = function (size) {
     }
 }
 
+Memory.responsiveMeMedium = function (size) {
+    if (size.matches) {
+        document.getElementById("responsive").innerHTML = '<div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div>';
+    } else {
+        document.getElementById("responsive").innerHTML = '<div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div>';
+    }
+}
+
+
+
 Memory.newGame = function () {
     var modal = document.getElementById("modal-wrapper");
     modal.style = "display: absolute";
     var logNewGame = document.getElementById("new-game");
     logNewGame.addEventListener('click', function clicked() {
         if (document.getElementById('easy').checked) {
-            Memory.deckEasy = ["ca1", "ca2", "ca3", "ca4", "ca5", "ca6", "ca1", "ca2", "ca3", "ca4", "ca5", "ca6"];
+            Memory.deck = ["ca1", "ca2", "ca3", "ca4", "ca5", "ca6", "ca1", "ca2", "ca3", "ca4", "ca5", "ca6"];
+            Memory.deckLength = Memory.deck.length;
             Memory.mySize = window.matchMedia("(max-width: 420px)");
             Memory.responsiveMeEasy(Memory.mySize);
             Memory.mySize.addListener(Memory.responsiveMeEasy);
@@ -22,7 +33,13 @@ Memory.newGame = function () {
             Memory.dealCards();
         }
         if (document.getElementById('medium').checked) {
-            Memory.deckMedium = ["ca1", "ca2", "ca3", "ca4", "ca5", "ca6", "ca7", "ca8", "ca9", "ca1", "ca2", "ca3", "ca4", "ca5", "ca6", "ca7", "ca8", "ca9"];
+            Memory.deck = ["ca1", "ca2", "ca3", "ca4", "ca5", "ca6", "ca7", "ca8", "ca9", "ca1", "ca2", "ca3", "ca4", "ca5", "ca6", "ca7", "ca8", "ca9"];
+            Memory.deckLength = Memory.deck.length;
+            Memory.mySize = window.matchMedia("(max-width: 420px)");
+            Memory.responsiveMeMedium(Memory.mySize);
+            Memory.mySize.addListener(Memory.responsiveMeMedium);
+            modal.style = "display: none";
+            Memory.dealCards();
         }
         if (document.getElementById('hard').checked) {
             console.log("hard checked");
@@ -30,8 +47,8 @@ Memory.newGame = function () {
     }, false)
 }
 
-Memory.deck = ["ca1", "ca2", "ca3", "ca4", "ca5", "ca6", "ca1", "ca2", "ca3", "ca4", "ca5", "ca6"];
-Memory.deckLength = Memory.deck.length;
+
+
 
 
 Memory.randomizeCards = function (deck) {
