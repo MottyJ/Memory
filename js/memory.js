@@ -16,11 +16,21 @@ Memory.responsiveMeMedium = function (size) {
     }
 }
 
+Memory.responsiveMeHard = function (size) {
+    if (size.matches) {
+        document.getElementById("responsive").innerHTML = '<div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div>';
+    } else {
+        document.getElementById("responsive").innerHTML = '<div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div><div class="row"><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div><div class="card"><img src="./img/backcard.jpg" class="back" /></div></div>';
+    }
+}
+
 
 
 Memory.newGame = function () {
     var modal = document.getElementById("modal-wrapper");
-    modal.style = "display: absolute";
+    if (!this.playedGame) {
+        modal.style = "display: absolute";
+    }
     var logNewGame = document.getElementById("new-game");
     logNewGame.addEventListener('click', function clicked() {
         if (document.getElementById('easy').checked) {
@@ -42,9 +52,15 @@ Memory.newGame = function () {
             Memory.dealCards();
         }
         if (document.getElementById('hard').checked) {
-            console.log("hard checked");
+            Memory.deck = ["ca1", "ca2", "ca3", "ca4", "ca5", "ca6", "ca7", "ca8", "ca9", "ca10", "ca11", "ca12", "ca1", "ca2", "ca3", "ca4", "ca5", "ca6", "ca7", "ca8", "ca9", "ca10", "ca11", "ca12"];
+            Memory.deckLength = Memory.deck.length;
+            Memory.mySize = window.matchMedia("(max-width: 420px)");
+            Memory.responsiveMeHard(Memory.mySize);
+            Memory.mySize.addListener(Memory.responsiveMeHard);
+            modal.style = "display: none";
+            Memory.dealCards();
         }
-    }, false)
+    })
 }
 
 
@@ -73,6 +89,7 @@ Memory.dealCards = function () {
 Memory.clickCounter = 0;
 Memory.isFlipped = false;
 Memory.isMatched = 0;
+Memory.playedGame = false;
 
 Memory.flipCard = function (card, index) {
     if (Memory.isFlipped == false && Memory.clickCounter < 2) {
@@ -93,7 +110,12 @@ Memory.flipCard = function (card, index) {
                 Memory.isMatched++;
             }
             if (Memory.isMatched == Memory.deckLength / 2) {
-                console.log("You've won the game!")
+                document.getElementById("modal-wrapper").innerHTML = '<div class="modal"><div class="modal-title">You Won!</div><h2>Wanna play again?</h2><div class="modal-content"><h3>Please select difficulty: </h3><div class="center"><div><label for="easy">Easy</label><input type="radio" id="easy" name="mode" /></div><div><label for="medium">Medium</label><input type="radio" id="medium" name="mode" /></div><div><label for="hard">Hard</label><input type="radio" id="hard" name="mode" /></div></div></div><br><button id="new-game">Play!</button></div>'
+                var modal = document.getElementById("modal-wrapper");
+                modal.style = "display: absolute";
+                this.playedGame = true;
+                Memory.isMatched = 0;
+                this.newGame();
             }
         } else {
             setTimeout(function () {
